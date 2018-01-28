@@ -14,6 +14,8 @@ defmodule Tic.Application do
       supervisor(TicWeb.Endpoint, []),
       # Start your own worker by calling: Tic.Worker.start_link(arg1, arg2, arg3)
       # worker(Tic.Worker, [arg1, arg2, arg3]),
+      supervisor(Registry, [:unique, :game_process_registry]),
+      supervisor(Tic.GameSupervisor, [])
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
