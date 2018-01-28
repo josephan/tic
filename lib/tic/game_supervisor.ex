@@ -1,5 +1,6 @@
 defmodule Tic.GameSupervisor do
   alias DynamicSupervisor, as: DynSup
+  alias Tic.Game
 
   use DynSup
 
@@ -9,14 +10,16 @@ defmodule Tic.GameSupervisor do
 
   def init(_args), do: DynSup.init(strategy: :one_for_one)
 
-  def start_stack(initial_value) do
-    DynSup.start_child(__MODULE__, {Tic.Game, initial_value})
+  def start_game do
+    spec = %{id: Game, start: {Game, :start_link, []}}
+    {:ok, pid} = DynSup.start_child(__MODULE__, spec)
+    Game.get_id(pid)
   end
 
-  def stop_stack(stack_pid) do
-    DynSup.terminate_child(__MODULE__, stack_pid)
+  def stop_game(game_id) do
+    DynSup.terminate_child(__MODULE__, Game.process(game_id))
   end
 
-  def which_stacks(), do: DynamicSupervisor.which_children(__MODULE__)
-  def count_stacks(), do: DynamicSupervisor.count_children(__MODULE__)
+  def which_games(), do: DynSup.which_children(__MODULE__)
+  def count_games(), do: DynSup.count_children(__MODULE__)
 end
