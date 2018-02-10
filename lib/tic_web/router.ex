@@ -16,7 +16,8 @@ defmodule TicWeb.Router do
   scope "/", TicWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/", GameController, :index
+    resources "/games", GameController, only: [:index, :create, :show]
   end
 
   # Other scopes may use custom stacks.

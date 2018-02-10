@@ -7,12 +7,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello Tic!</title>
+    <title>Tic Tac Toe</title>
     <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono" rel="stylesheet">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
   <body>
     <div class="container">
+      <%= render TicWeb.LayoutView, "flash.html", assigns %>
+      <h1>Tic Tac Toe</h1>
       <%= render @view_module, @view_template, assigns %>
     </div>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script

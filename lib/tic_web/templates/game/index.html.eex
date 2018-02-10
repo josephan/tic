@@ -1,0 +1,1 @@
+<%= link("Create Game", to: game_path(@conn, :create), method: "post") %>

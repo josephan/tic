@@ -1,0 +1,12 @@
+<%
+  info = get_flash(@conn, :info)
+  error = get_flash(@conn, :error)
+%>
+
+<%= if info do %>
+  <p><%= info %></p>
+<% end %>
+
+<%= if error do %>
+  <p><%= error %></p>
+<% end %>
