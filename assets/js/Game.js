@@ -4,7 +4,20 @@ import { Socket } from 'phoenix';
 class Square extends React.Component {
   constructor(props) {
     super(props);
-    this.socket = new Socket("/socket", {params: {token: }})
+    let root = document.getElementById("root");
+
+    this.connectSocket();
+  }
+
+  connectSocket = () => {
+    const gameId = root.dataset.gameId;
+    const playerId = root.dataset.playerId;
+    const socket = new Socket("/socket", {params: {token: playerId}});
+    const channel = socket.channel(`game:${gameId}`, { player_id: playerId });
+
+    channel.join()
+      .receive('ok', (resp) => { console.log('joined!') })
+      .receive('error', (resp) => { console.log('could not join.') });
   }
 
   clickSquare = () => {

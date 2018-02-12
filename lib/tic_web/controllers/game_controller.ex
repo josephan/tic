@@ -14,7 +14,7 @@ defmodule TicWeb.GameController do
     case Tic.Game.join(game_id) do
       {:ok, uuid} ->
         conn
-        |> render("show.html", player_id: uuid)
+        |> render("show.html", player_id: uuid, game_id: game_id)
       {:error, _msg} ->
         conn
         |> put_flash(:error, "Sorry that game is full.")
